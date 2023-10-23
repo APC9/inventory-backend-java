@@ -2,6 +2,7 @@ package com.company.inventory.inventory.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import com.company.inventory.inventory.model.Category;
 import com.company.inventory.inventory.respose.CategoryResponseRest;
 import com.company.inventory.inventory.services.ICategoryService;
 
+@CrossOrigin( origins = "*" ) //  "*": cualquier URL  --  { "http://localhost:4200"}: una URl especifica 
 @RestController
 @RequestMapping("/api/v1")
 public class CategoryRestController {
