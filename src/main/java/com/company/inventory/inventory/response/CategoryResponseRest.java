@@ -1,4 +1,4 @@
-package com.company.inventory.inventory.respose;
+package com.company.inventory.inventory.response;
 
 import lombok.Getter;
 import lombok.Setter;

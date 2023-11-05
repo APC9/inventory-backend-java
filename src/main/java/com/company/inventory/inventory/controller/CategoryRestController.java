@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.inventory.inventory.model.Category;
-import com.company.inventory.inventory.respose.CategoryResponseRest;
+import com.company.inventory.inventory.response.CategoryResponseRest;
 import com.company.inventory.inventory.services.ICategoryService;
 
 @CrossOrigin( origins = "*" ) //  "*": cualquier URL  --  { "http://localhost:4200"}: una URl especifica 

@@ -12,12 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.company.inventory.inventory.dao.ICategoryDao;
 import com.company.inventory.inventory.model.Category;
-import com.company.inventory.inventory.respose.CategoryResponseRest;
+import com.company.inventory.inventory.response.CategoryResponseRest;
 
 
 @Service
 public class CategoryServiceImpl implements ICategoryService {
 
+  // dependency injections without the constructor
   @Autowired
   private ICategoryDao categoryDao;
 
