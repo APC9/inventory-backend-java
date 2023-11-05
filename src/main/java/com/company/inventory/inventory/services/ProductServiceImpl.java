@@ -13,7 +13,6 @@ import com.company.inventory.inventory.dao.ICategoryDao;
 import com.company.inventory.inventory.dao.IProductDao;
 import com.company.inventory.inventory.model.Category;
 import com.company.inventory.inventory.model.Product;
-import com.company.inventory.inventory.response.CategoryResponseRest;
 import com.company.inventory.inventory.response.ProductResponseRest;
 import com.company.inventory.inventory.util.Util;
 
