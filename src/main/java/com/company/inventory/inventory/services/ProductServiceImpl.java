@@ -107,9 +107,17 @@ public class ProductServiceImpl implements IproductService{
   public ResponseEntity<ProductResponseRest> search() {
     ProductResponseRest response = new ProductResponseRest();
     List<Product> products = (List<Product>) productDao.findAll();
+    List<Product> list = new ArrayList<>();
 
     try {
-      response.getProductResponse().setProducts(products);
+
+      products.stream().forEach( (p)->{
+        byte[] imageDescompressed = Util.decompressZLib( p.getPicture() );
+        p.setPicture(imageDescompressed);
+        list.add(p);
+      });
+
+      response.getProductResponse().setProducts(list);
       response.setMetadata("respuesta nok", "00", "response successfully");
 
     } catch (Exception e) {
@@ -119,6 +127,40 @@ public class ProductServiceImpl implements IproductService{
     }
 
     return new ResponseEntity<ProductResponseRest>( response, HttpStatus.OK);
+  }
+
+  @Override
+  @Transactional( readOnly = true)
+  public ResponseEntity<ProductResponseRest> searchByName(String name) {
+    ProductResponseRest response = new ProductResponseRest();
+    List<Product> list = new ArrayList<>();
+    List<Product> listAux = new ArrayList<>();
+
+    try {
+      // search by product by Name
+      listAux = productDao.findByNameContainingIgnoreCase(name);
+
+      if( listAux.size() == 0) {
+        response.setMetadata("Respuesta nok", "-1", "product not found");
+        return new ResponseEntity<ProductResponseRest>( response, HttpStatus.NOT_FOUND);
+      }
+
+      listAux.stream().forEach( (p)->{
+        byte[] imageDescompressed = Util.decompressZLib( p.getPicture() );
+        p.setPicture(imageDescompressed);
+        list.add(p);
+      });
+
+      response.getProductResponse().setProducts(list);
+      response.setMetadata("Respuesta ok", "00", "Product found successfully");
+
+    } catch (Exception e) {
+        e.getStackTrace();
+        response.setMetadata("Respuesta nok", "-1", "Error saved product, check logs");
+        return new ResponseEntity<ProductResponseRest>( response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    return new ResponseEntity<ProductResponseRest>( response, HttpStatus.OK);    
   }
   
 }
