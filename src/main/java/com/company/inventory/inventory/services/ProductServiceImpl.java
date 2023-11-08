@@ -33,7 +33,7 @@ public class ProductServiceImpl implements IproductService{
 
   @Override
   @Transactional
-  public ResponseEntity<ProductResponseRest> createProduct(Product product, long categoryId) {
+  public ResponseEntity<ProductResponseRest> createProduct(Product product, long Id) {
    
     ProductResponseRest response = new ProductResponseRest();
     List<Product> list = new ArrayList<>();
@@ -41,7 +41,7 @@ public class ProductServiceImpl implements IproductService{
     try {
      
       //search Category to set in the product object
-      Optional<Category> category = categoryDao.findById(categoryId);
+      Optional<Category> category = categoryDao.findById(Id);
       
       if( !category.isPresent() ){
         response.setMetadata("Respuesta nok", "-1", "Categoy not found");
@@ -74,13 +74,13 @@ public class ProductServiceImpl implements IproductService{
 
   @Override
   @Transactional( readOnly = true)
-  public ResponseEntity<ProductResponseRest> searchById(long categoryId) {
+  public ResponseEntity<ProductResponseRest> searchById(long Id) {
     ProductResponseRest response = new ProductResponseRest();
     List<Product> list = new ArrayList<>();
 
     try {
       // search by product by id
-      Optional<Product> product = productDao.findById(categoryId);
+      Optional<Product> product = productDao.findById(Id);
 
       if(!product.isPresent()) {
         response.setMetadata("Respuesta nok", "-1", "product not found");
@@ -161,6 +161,30 @@ public class ProductServiceImpl implements IproductService{
     }
 
     return new ResponseEntity<ProductResponseRest>( response, HttpStatus.OK);    
+  }
+
+  @Override
+  @Transactional
+  public ResponseEntity<ProductResponseRest> deleteById(long Id) {
+    ProductResponseRest response = new ProductResponseRest();
+    Optional<Product> productSearch = productDao.findById(Id); 
+
+    try {
+      if( !productSearch.isPresent() ) {
+        response.setMetadata("Respuesta nok", "-1", "Category with id "+Id+ " not found");
+        return new ResponseEntity<ProductResponseRest>( response, HttpStatus.NOT_FOUND);
+      } 
+
+      productDao.deleteById(Id);   
+      response.setMetadata("Respuesta ok ", "00", "Registro eliminado");
+
+    } catch (Exception e) {
+      e.getStackTrace();
+      response.setMetadata("Respuesta nok", "-1", "Error al Eliminar categoria");
+      return new ResponseEntity<ProductResponseRest>( response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    return new ResponseEntity<ProductResponseRest>( response, HttpStatus.OK);
   }
   
 }
