@@ -55,6 +55,20 @@
   	  <artifactId>mysql-connector-java</artifactId>
   	  <version>8.0.24</version>
 		</dependency>
+		
+		<!-- Dependencias para descargas de archivos excels -->
+		<!-- Dependencias para descargas de archivos excels - versiones mas antiguas -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+<!--  excel 2007 over  -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.2</version>
+		</dependency>
 
 	</dependencies>
 
