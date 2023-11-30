@@ -17,7 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.company.inventory.inventory.model.Product;
 import com.company.inventory.inventory.response.ProductResponseRest;
 import com.company.inventory.inventory.services.IproductService;
+import com.company.inventory.inventory.util.ProductExcelExport;
 import com.company.inventory.inventory.util.Util;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @CrossOrigin( origins = "*" )
 @RestController
@@ -132,5 +135,22 @@ public class productRestController {
     ResponseEntity<ProductResponseRest> response = productService.search();
     return response; 
   }
+
+  @GetMapping("/products/export/excel")
+  public void exportToExcel( HttpServletResponse response ) throws IOException{
+    response.setContentType("application/octet-stream");
+
+    String headerKey = "Content-Disposition";
+    String headerValue = "attachment; filename=result_products.xlsx";
+    
+    response.setHeader(headerKey, headerValue);
+
+    ResponseEntity<ProductResponseRest> productResponse = productService.search();
+
+    ProductExcelExport excelExporter = new ProductExcelExport( productResponse.getBody().getProductResponse().getProducts() );
+
+    excelExporter.export(response);
+  } 
+
 
 }
