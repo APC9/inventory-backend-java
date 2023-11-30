@@ -10,20 +10,21 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.company.inventory.inventory.model.Category;
+import com.company.inventory.inventory.model.Product;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class CategoryExcelExport{
-
+public class ProductExcelExport {
+	
+	
 	private XSSFWorkbook workbook;
 	private XSSFSheet sheet;
-	private List<Category> category;
+	private List<Product> product;
 	
-	//constructor
-	public CategoryExcelExport (List<Category> categories) {
-		this.category = categories;
+	
+	public ProductExcelExport (List<Product> products) {
+		this.product = products;
 		workbook = new XSSFWorkbook();
 	}
 	
@@ -39,7 +40,9 @@ public class CategoryExcelExport{
 		
 		createCell(row, 0, "ID", style);
 		createCell(row, 1, "Nombre", style);
-		createCell(row, 2, "Descripción", style);
+		createCell(row, 2, "Precio", style);
+		createCell(row, 3, "Cantidad", style);
+		createCell(row, 4, "Categoría", style);
 		
 	}
 	
@@ -69,13 +72,15 @@ public class CategoryExcelExport{
 		font.setFontHeight(14);
 		style.setFont(font);
 		
-		for( Category result: category) {
+		for( Product result: product) {
 			
 			Row row = sheet.createRow(rowCount++);
 			int columnCount = 0;
 			createCell(row, columnCount++, String.valueOf(result.getId()), style);
 			createCell(row, columnCount++, result.getName(), style);
-			createCell(row, columnCount++, result.getDescription(), style);
+			createCell(row, columnCount++, result.getPrice(), style);
+			createCell(row, columnCount++, result.getAccount(), style);
+			createCell(row, columnCount++, result.getCategory().getName(), style);
 			
 		}
 	}

@@ -85,11 +85,16 @@ public class CategoryRestController {
     return response;
   }
 
+  /**
+   * 
+   * @param response
+   * @throws IOException
+    */
   @GetMapping("/categories/export/excel")
   public void exportToExcel( HttpServletResponse response ) throws IOException{
     response.setContentType("application/octet-stream");
 
-    String headerKey = "conntent-Disposition";
+    String headerKey = "Content-Disposition";
     String headerValue = "attachment; filename=result_category.xlsx";
     
     response.setHeader(headerKey, headerValue);
