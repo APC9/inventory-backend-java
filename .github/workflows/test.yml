@@ -3,7 +3,7 @@ name: Spring Boot Maven Tests
 on:
   push:
     branches:
-      - develop  # Cambia 'main' al nombre de tu rama principal si es diferente
+      - main  # Cambia 'main' al nombre de tu rama principal si es diferente
 
 jobs:
   test:
