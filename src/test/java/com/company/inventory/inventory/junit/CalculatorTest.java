@@ -42,8 +42,8 @@ public class CalculatorTest {
     assertFalse(calculator.sumar(2, 2) == 5);
   }
 
+//
   @Test
-  @DisplayName("El metodo sumar debe devolver las sumar de 2 numero float")
   public void restarTest(){
     assertEquals(2, calculator.restar(4, 2));
     assertFalse(calculator.restar(4, 2) == 5);
