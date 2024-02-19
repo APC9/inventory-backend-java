@@ -1,0 +1,23 @@
+name: Spring Boot Maven Tests
+
+on:
+  push:
+    branches:
+      - develop  # Cambia 'main' al nombre de tu rama principal si es diferente
+
+jobs:
+  test:
+    name: Run Maven Tests with Java 17
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+
+    - name: Build with Maven
+      run: mvn -B -Dtest=com.company.inventory.inventory.junit.CalculatorTest test
